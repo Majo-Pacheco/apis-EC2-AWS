@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+
+# Environment variables
+.env
+.venv
+env/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# AWS
+*.pem
+*.p12
+*.crt
+*.cer
+*.p7b
+*.p7c
+*.p7s
+*.pem
+*.pem.pub
+*.pem.enc
+*.pem.encrypted
+*.pem.asc
+*.pem.sig
+*.pem.key
+*.pem.crt
+*.pem.der
+*.pem.pkcs7
+*.pem.pkcs8
+*.pem.pkcs12
+*.pem.pkix
+*.pem.pkix-req
+*.pem.pkix-crl
+*.pem.pkix-crt
+*.pem.pkix-req
+*.pem.pkix-csr
+*.pem.pkix-cert
+*.pem.pkix-ca
+*.pem.pkix-crl
+*.pem.pkix-crt
+*.pem.pkix-req
+*.pem.pkix-csr
+*.pem.pkix-cert
+*.pem.pkix-ca
+
+# Logs
+*.log
+
+# Local development
+config_local.py

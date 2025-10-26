@@ -15,10 +15,11 @@ A RESTful API for managing EC2 instances with mock data, built with Flask and Py
 
 - Python 3.8 or higher
 - pip (Python package manager)
-- AWS credentials configured with the following IAM permissions:
+- AWS account with the following IAM permissions:
   - `ec2:DescribeInstances`
   - `ec2:StartInstances`
   - `ec2:StopInstances`
+  - `ec2:DescribeInstanceStatus`
 
 ## Setup
 
@@ -30,25 +31,57 @@ A RESTful API for managing EC2 instances with mock data, built with Flask and Py
 
 2. Create and activate a virtual environment:
    ```bash
+   # Windows
    python -m venv venv
-   .\venv\Scripts\activate  # On Windows
-   # or
-   source venv/bin/activate  # On macOS/Linux
+   .\venv\Scripts\activate
+   
+   # macOS/Linux
+   python3 -m venv venv
+   source venv/bin/activate
    ```
 
 3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
+   
+4. Set up environment variables:
+   - Copy the example environment file:
+     ```bash
+     # Windows
+     copy .env.example .env
+     
+     # macOS/Linux
+     cp .env.example .env
+     ```
+   - Edit the `.env` file and add your AWS credentials
+   - Never commit the `.env` file to version control!
+
+5. Configure AWS IAM User:
+   - Create an IAM user in AWS Console
+   - Attach a policy with the required permissions
+   - Generate access keys (Access Key ID and Secret Access Key)
+   - Add these to your `.env` file
 
 ## Running the Application
 
-1. Start the development server:
+1. Ensure your virtual environment is activated
+2. Start the development server:
    ```bash
    python app.py
    ```
+3. The API will be available at `http://localhost:5000`
 
-2. The API will be available at `http://localhost:5000`
+## Security Considerations
+
+1. **Never commit sensitive information** to version control
+2. The following files are in `.gitignore` for security:
+   - `.env` (contains your AWS credentials)
+   - `__pycache__/`
+   - `venv/`
+3. Use IAM roles with least privilege principle
+4. Rotate your AWS credentials regularly
+5. Consider using AWS credentials management tools like AWS Vault or AWS SSO
 
 ## API Endpoints
 
