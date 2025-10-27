@@ -25,35 +25,44 @@ A RESTful API for managing EC2 instances with mock data, built with Flask and Py
 
 1. Clone the repository
 git clone <your-repo-url>
+
+Go to the project directory
 cd C:\Path\To\Your\Project
 
-
-(Replace C:\Path\To\Your\Project with your own path.)
-
 2. Create and activate virtual environment
-python -m venv venv
-.\venv\Scripts\activate
+python -m venv venv --> create (a folder named 'venv' will be created in your proyect directory)
+
+.\venv\Scripts\activate --> activate
 
 3. Install dependencies
 pip install -r requirements.txt
 
+
 Environment Variables
 4. Set up .env file
-copy .env.example .env
+copy .env.example .env --> a new .env will be created in your proyect directory
 
 Edit .env and add:
 
-AWS_ACCESS_KEY_ID=your-access-key
-AWS_SECRET_ACCESS_KEY=your-secret-key
+AWS_ACCESS_KEY_ID=<ACCESSKEYID>
+AWS_SECRET_ACCESS_KEY=<SECRETACCESSKEY>
 AWS_DEFAULT_REGION=us-east-1
 
 Save the .env with the credentials you have just configured
 
-🧪 Run the App
+⚠ **Important:** The credentials `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` provided are real and can be used for this project demo only.  
+The IAM user created for this purpose has **limited permissions**, restricted to starting, stopping, and describing a single EC2 instance used in this project.  
+No other AWS resources can be modified or accessed with these credentials.
+
+
+Run the App
 5. Start the app
 python app.py
 
-☁️ Test the Endpoints (PowerShell) --> Open another PowerShell window while still running the app
+Test the Endpoints (PowerShell) --> Open another PowerShell window while still running the app
+Go to the project directory
+cd C:\Path\To\Your\Project
+
 6. List EC2 instances
 Invoke-RestMethod -Uri "http://localhost:5000/instances" -Method Get | ConvertTo-Json -Depth 10
 
