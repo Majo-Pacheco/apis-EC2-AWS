@@ -42,7 +42,7 @@ Environment Variables
 4. Set up .env file
 copy .env.example .env --> a new .env will be created in your proyect directory
 
-Edit .env and add:
+Edit .env in your proyect folder and add:
 
 AWS_ACCESS_KEY_ID=<ACCESSKEYID>
 AWS_SECRET_ACCESS_KEY=<SECRETACCESSKEY>
