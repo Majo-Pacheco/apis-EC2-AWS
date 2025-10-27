@@ -23,163 +23,45 @@ A RESTful API for managing EC2 instances with mock data, built with Flask and Py
 
 ## Setup
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd meli-api
-   ```
+1. Clone the repository
+git clone <your-repo-url>
+cd C:\Path\To\Your\Project
 
-2. Create and activate a virtual environment:
-   ```bash
-   # Windows
-   python -m venv venv
-   .\venv\Scripts\activate
-   
-   # macOS/Linux
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
 
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-   
-4. Set up environment variables:
-   - Copy the example environment file:
-     ```bash
-     # Windows
-     copy .env.example .env
-     
-     # macOS/Linux
-     cp .env.example .env
-     ```
-   - Edit the `.env` file and add your AWS credentials
-   - Never commit the `.env` file to version control!
+(Replace C:\Path\To\Your\Project with your own path.)
 
-5. Configure AWS IAM User:
-   - Create an IAM user in AWS Console
-   - Attach a policy with the required permissions
-   - Generate access keys (Access Key ID and Secret Access Key)
-   - Add these to your `.env` file
+2. Create and activate virtual environment
+python -m venv venv
+.\venv\Scripts\activate
 
-## Running the Application
+3. Install dependencies
+pip install -r requirements.txt
 
-1. Ensure your virtual environment is activated
-2. Start the development server:
-   ```bash
-   python app.py
-   ```
-3. The API will be available at `http://localhost:5000`
+Environment Variables
+4. Set up .env file
+copy .env.example .env
 
-## Security Considerations
+Edit .env and add:
 
-1. **Never commit sensitive information** to version control
-2. The following files are in `.gitignore` for security:
-   - `.env` (contains your AWS credentials)
-   - `__pycache__/`
-   - `venv/`
-3. Use IAM roles with least privilege principle
-4. Rotate your AWS credentials regularly
-5. Consider using AWS credentials management tools like AWS Vault or AWS SSO
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+AWS_DEFAULT_REGION=us-east-1
 
-## API Endpoints
+Save the .env with the credentials you have just configured
 
-### List EC2 Instances
-- `GET /instances`
-- **Description**: Retrieves a list of all EC2 instances
-- **Success Response (200 OK)**:
-  ```json
-  {
-    "success": true,
-    "data": [
-      {
-        "id": "i-0123456789abcdef0",
-        "type": "t2.micro",
-        "state": "running",
-        "region": "us-east-1",
-        "public_ip": "54.210.167.204",
-        "private_ip": "172.31.22.36"
-      }
-    ]
-  }
-  ```
+🧪 Run the App
+5. Start the app
+python app.py
 
-### Stop an EC2 Instance
-- `POST /instances/stop/{instance_id}`
-- **Description**: Stops a running EC2 instance
-- **Path Parameters**:
-  - `instance_id` (required): The EC2 instance ID
-- **Success Response (200 OK)**:
-  ```json
-  {
-    "success": true,
-    "message": "Instance i-0123456789abcdef0 is stopping",
-    "data": {
-      "instance_id": "i-0123456789abcdef0",
-      "current_state": "stopping",
-      "previous_state": "running"
-    }
-  }
-  ```
+☁️ Test the Endpoints (PowerShell) --> Open another PowerShell window while still running the app
+6. List EC2 instances
+Invoke-RestMethod -Uri "http://localhost:5000/instances" -Method Get | ConvertTo-Json -Depth 10
 
-### Start an EC2 Instance
-- `POST /instances/start/{instance_id}`
-- **Description**: Starts a stopped EC2 instance
-- **Path Parameters**:
-  - `instance_id` (required): The EC2 instance ID
-- **Success Response (200 OK)**:
-  ```json
-  {
-    "success": true,
-    "message": "Instance i-0123456789abcdef0 is starting",
-    "data": {
-      "instance_id": "i-0123456789abcdef0",
-      "current_state": "pending",
-      "previous_state": "stopped"
-    }
-  }
-  ```
-- **Common Error Codes**:
-  - `400`: Instance is already running or cannot be started
-  - `403`: Insufficient permissions to start the instance
-  - `404`: Instance not found
+7. Start an EC2 instance --> Change the id if needed
+Invoke-RestMethod -Uri "http://localhost:5000/instances/start/i-0b44921f1151aa857" -Method Post | ConvertTo-Json
 
-### Example Usage
-
-#### Using curl (Linux/MacOS):
-```bash
-# List instances
-curl http://localhost:5000/instances
-
-# Stop an instance
-curl -X POST http://localhost:5000/instances/stop/i-0123456789abcdef0
-
-# Start an instance
-curl -X POST http://localhost:5000/instances/start/i-0123456789abcdef0
-```
-
-#### Using PowerShell (Windows):
-```powershell
-# List instances
-Invoke-RestMethod -Uri "http://localhost:5000/instances" -Method Get | ConvertTo-Json
-
-# Stop an instance
-Invoke-RestMethod -Uri "http://localhost:5000/instances/stop/i-0123456789abcdef0" -Method Post | ConvertTo-Json
-
-# Start an instance
-Invoke-RestMethod -Uri "http://localhost:5000/instances/start/i-0123456789abcdef0" -Method Post | ConvertTo-Json
-```
-
-> **Note for Windows Users**: In PowerShell, `curl` is an alias for `Invoke-WebRequest`. For REST API calls, it's recommended to use `Invoke-RestMethod` as shown above for better JSON handling.
-
-## Running Tests
-
-Run the test suite using:
-
-```bash
-pytest
-```
+9. Stop an EC2 instance --> Change the id if needed
+Invoke-RestMethod -Uri "http://localhost:5000/instances/stop/i-0b44921f1151aa857" -Method Post | ConvertTo-Json
 
 ## Project Structure
 
